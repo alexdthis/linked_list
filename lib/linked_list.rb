@@ -15,6 +15,11 @@ class Linked_list
 #remove_at(index) that removes the node at the given index.
 
 #The linkedlist will be represented as an array containing smaller individual nested array of class Node.
+    def initialize(list = Array.new(0))
+        @list = list
+    end
+
+
 
 end
 
@@ -22,5 +27,9 @@ class Node
     #contains a #value method and a link to the #next_node, set both as nil by default.
     #A node will be represented as a nested array inside the Linked_list object array.
     #Each array will contain data and either a pointer to the next node or a terminator address that signifies the end of the list
+    def initialize(value, position = nil)
+        @value = value
+        @position = position
+    end
     
 end
