@@ -19,6 +19,25 @@ class Linked_list
         @list = list
     end
 
+    def append(node)
+        if node.class != Node
+            print "Invalid data, please input a node"
+            return
+        else
+            list.append(node)
+            list.last[1] = nil
+        end
+    end
+
+    def prepend(node)
+        if node.class != Node
+            print "Invalid data, please input a node"
+            return
+        else
+            list.unshift(node)
+            list.first[1] = 1
+        end
+    end
 
 
 end
@@ -31,5 +50,8 @@ class Node
         @value = value
         @position = position
     end
-    
+
+    def create_node
+        return [value, position]
+    end
 end
