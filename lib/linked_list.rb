@@ -41,10 +41,10 @@ class Linked_list
         end
         if addresses.empty?
             new_node[:pointer] = 'end'
-            @list.push(new_node)
+            @list.unshift(new_node)
         else
             new_node[:pointer] = addresses.min
-            @list.push(new_node)
+            @list.unshift(new_node)
         end
     end
 
@@ -128,10 +128,35 @@ class Linked_list
         end
         return string_rep
     end
-    
+
 #Optional:
 #insert_at(value, index) that inserts a new node with the provided value at the given index.
+
+    def insert_at(value, address)
+        @list.each do |element|
+            if element[:address] >= address
+                element[:address] += 1
+                element[:pointer] += 1 if element[:pointer] != 'end'
+            end
+        end
+        new_node = Node.new.create_node(value, address)
+        new_node[:pointer] = address + 1
+        @list.insert(address, new_node)
+        return @list
+    end
+
 #remove_at(index) that removes the node at the given index.
+
+    def remove_at(address)
+        @list.each do |element|
+            if element[:address] >= address
+                element[:address] -= 1
+                element[:pointer] -= 1 if element[:pointer] != 'end'
+            end
+        end
+        @list.delete_at(address)
+        return @list
+    end
 
     def generate_values
         values = []
