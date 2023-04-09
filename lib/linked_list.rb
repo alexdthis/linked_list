@@ -19,39 +19,53 @@ class Linked_list
         @list = list
     end
 
-    def append(node)
-        if node.class != Node
-            print "Invalid data, please input a node"
-            return
+    def append(value)
+        new_node = Node.new.create_node(value)
+        new_node[:pointer] = 'end'
+        addresses = []
+        first_node = 
+        @list.each {|element| addresses.push(element[:address])}
+        last_node_index = @list.index {|element| element[:address] == addresses.max}
+        if addresses.empty?
+            new_node[:address] = 0
+            @list.push(new_node)
         else
-            list.append(node)
-            list.last[1] = nil
+            new_node[:address] = addresses.max + 1
+            @list[last_node_index][:pointer] = new_node[:address]
+            @list.push(new_node)
         end
     end
 
-    def prepend(node)
-        if node.class != Node
-            print "Invalid data, please input a node"
-            return
+    def prepend(value)
+        new_node = Node.new.create_node(value)
+        new_node[:address] = 0
+        addresses = []
+        @list.each do |element|
+            element[:address] += 1
+            if element[:pointer] != 'end'
+                element[:pointer] += 1
+            end
+            addresses.push(element[:address])
+        end
+        if addresses.empty?
+            new_node[:pointer] = 'end'
+            @list.push(new_node)
         else
-            list.unshift(node)
-            list.first[1] = 1
+            new_node[:pointer] = addresses.min
+            @list.push(new_node)
         end
     end
-
-
 end
 
 class Node
     #contains a #value method and a link to the #next_node, set both as nil by default.
     #A node will be represented as a nested array inside the Linked_list object array.
     #Each array will contain data and either a pointer to the next node or a terminator address that signifies the end of the list
-    def initialize(value, position = nil)
-        @value = value
-        @position = position
-    end
 
-    def create_node
-        return [value, position]
+    def create_node(value, address = nil, pointer = nil)
+        node = {address: address,
+                value: value,
+                pointer: pointer}
+        return node
     end
 end
